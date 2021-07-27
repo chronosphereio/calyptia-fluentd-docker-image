@@ -12,9 +12,9 @@
 
 
 IMAGE_NAME := calyptia/fluentd
+#TODO: replace from beta to debian after Fluentd v1.14 is released.
 X86_IMAGES := \
 	v1.13/debian:v1.13.3-beta-1.0,v1.13-beta-1,edge-beta
-#	v1.13/debian:v1.13.3-debian-1.0,v1.13-debian-1,edge-debian
 #	<Dockerfile>:<version>,<tag1>,<tag2>,...
 
 ALL_IMAGES := $(X86_IMAGES)
