@@ -69,3 +69,18 @@
   run docker run --rm $IMAGE sh -c "gem list --local json | grep -e '^json '"
   [ "$status" -eq 0 ]
 }
+
+@test "gem 'cmetrics' is installed " {
+  run docker run --rm $IMAGE sh -c "gem list --local cmetrics | grep -e '^cmetrics '"
+  [ "$status" -eq 0 ]
+}
+
+@test "gem 'fluent-plugin-metrics-cmetrics' is installed " {
+  run docker run --rm $IMAGE sh -c "gem list --local fluent-plugin-metrics-cmetrics | grep -e '^fluent-plugin-metrics-cmetrics '"
+  [ "$status" -eq 0 ]
+}
+
+@test "gem 'fluent-plugin-calyptia-monitoring' is installed " {
+  run docker run --rm $IMAGE sh -c "gem list --local fluent-plugin-calyptia-monitoring | grep -e '^fluent-plugin-calyptia-monitoring '"
+  [ "$status" -eq 0 ]
+}
