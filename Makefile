@@ -11,7 +11,7 @@
 #	make release-all
 
 
-IMAGE_NAME := calyptia/fluentd
+IMAGE_NAME := ghcr.io/calyptia/fluentd
 #TODO: replace from beta to debian after Fluentd v1.14 is released.
 X86_IMAGES := \
 	v1.13/debian:v1.13.3-beta-1.0,v1.13-beta-1,edge-beta
