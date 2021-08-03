@@ -11,9 +11,9 @@ ENV TINI_VERSION=0.18.0
 # therefore an 'apt-get purge' has no effect
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
-            ca-certificates \
+            ca-certificates libcap-ng-dev \
  && buildDeps=" \
-      make gcc g++ git libc-dev cmake \
+      make gcc g++ git libc-dev cmake pkg-config \
       wget bzip2 gnupg dirmngr \
     " \
  && apt-get install -y --no-install-recommends $buildDeps \
@@ -21,6 +21,7 @@ RUN apt-get update \
  && gem install oj -v 3.12.2 \
  && gem install json -v 2.5.1 \
  && gem install async-http -v 0.56.5 \
+ && gem install capng_c -v 0.2.2 \
  && gem install bundler -v 2.2.24 \
  # Install from rubygems after Fluentd v1.14 is merged.
  && git clone https://github.com/fluent/fluentd.git /fluentd/repo \
@@ -33,6 +34,7 @@ RUN apt-get update \
  # End for installing Calyptia customized Fluentd.
  && gem install fluent-plugin-metrics-cmetrics -v 0.1.0.rc3 \
  && gem install fluent-plugin-calyptia-monitoring -v 0.1.0.rc6 \
+ && fluent-cap-ctl --add dac_override \
  && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
  && wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v$TINI_VERSION/tini-$dpkgArch" \
  && wget -O /usr/local/bin/tini.asc "https://github.com/krallin/tini/releases/download/v$TINI_VERSION/tini-$dpkgArch.asc" \
@@ -55,6 +57,7 @@ RUN apt-get update \
 RUN groupadd -r fluent && useradd -r -g fluent fluent \
     # for log storage (maybe shared with host)
     && mkdir -p /fluentd/log \
+    && mkdir -p /fluentd/state \
     # configuration/plugins path (default: copied from .)
     && mkdir -p /fluentd/etc /fluentd/plugins \
     && chown -R fluent /fluentd && chgrp -R fluent /fluentd
