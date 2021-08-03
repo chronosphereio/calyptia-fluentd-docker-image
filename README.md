@@ -18,6 +18,10 @@ And enabling RPC and configDump endpoint is required if sending Fluentd configur
 
 ### Example settings for Calyptia Cloud
 
+Specify `CALYPTIA_API_KEY` environment variable to inject Calyptia Cloud API Key.
+
+#### Customize Settings for Calyptia Cloud
+
 ```aconf
 <system>
 # If users want to use multi workers feature which corresponds to logical number of CPUs, please comment out this line.
@@ -62,7 +66,7 @@ Current images use fluentd v1 series and pushed into GitHub Container Registry(g
 To create endpoint that collects logs on your host just run:
 
 ```bash
-docker run -d -p 24224:24224 -p 24224:24224/udp -v /data:/fluentd/log fluent/fluentd:v1.3-debian-1
+docker run -d -p 24224:24224 -p 24224:24224/udp -v /data:/fluentd/log fluent/fluentd:v1.3-beta-1
 ```
 
 Default configurations are to:

@@ -25,7 +25,7 @@ RUN apt-get update \
  && gem install async-http -v 0.56.5 \
  && gem install bundler -v 2.2.24 \
  # Install from rubygems after Fluentd v1.14 is merged.
- && git clone -b implement-metrics-plugin https://github.com/calyptia/fluentd.git /fluentd/repo \
+ && git clone https://github.com/fluent/fluentd.git /fluentd/repo \
  && (cd /fluentd/repo \
  && bundle config set --local path 'vendor/bundle' \
  && bundle install \
@@ -34,7 +34,7 @@ RUN apt-get update \
  && rm -rf /fluentd/repo \
  # End for installing Calyptia customized Fluentd.
  && gem install fluent-plugin-metrics-cmetrics -v 0.1.0.rc3 \
- && gem install fluent-plugin-calyptia-monitoring -v 0.1.0.rc5 \
+ && gem install fluent-plugin-calyptia-monitoring -v 0.1.0.rc6 \
  && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
  && wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v$TINI_VERSION/tini-$dpkgArch" \
  && wget -O /usr/local/bin/tini.asc "https://github.com/krallin/tini/releases/download/v$TINI_VERSION/tini-$dpkgArch.asc" \
