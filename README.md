@@ -55,6 +55,38 @@ Specify `CALYPTIA_API_KEY` environment variable to inject Calyptia Cloud API Key
 </source>
 ```
 
+### Generate Calyptia Cloud Monitoring settings via calyptia-config-generator
+
+```bash
+$ docker run  --rm ghcr.io/calyptia/fluentd:v1.14-debian-1 /usr/local/bundle/bin/calyptia-config-generator YOUR_API_KEY --enable-size-metrics --storage-agent-token-dir /fluentd/log --endpoint http://localhost:5000
+```
+
+Then, got in stdin:
+
+```aconf
+<system>
+  <metrics>
+    @type cmetrics
+  </metrics>
+  enable_input_metrics true
+  enable_size_metrics true
+  rpc_endpoint 127.0.0.1:24444
+  enable_get_dump true
+<system>
+<source>
+  @type calyptia_monitoring
+  @id input_caplyptia_monitoring
+  <cloud_monitoring>
+    endpoint http://localhost:5000
+    api_key YOUR_API_KEY
+  </cloud_monitoring>
+  <storage>
+    @type local
+    path /fluentd/log/agent_state
+  </storage>
+</source>
+```
+
 ## Docker
 
 Current images use fluentd v1 series and pushed into GitHub Container Registry(ghcr):
@@ -66,7 +98,7 @@ Current images use fluentd v1 series and pushed into GitHub Container Registry(g
 To create endpoint that collects logs on your host just run:
 
 ```bash
-docker run -d -p 24224:24224 -p 24224:24224/udp -v /data:/fluentd/log -e CALYPTIA_API_KEY=YOUR_API_KEY [-e CALYPTIA_ENDPOINT=http://localhost:5000] ghcr.io/calyptia/fluentd:v1.13-beta-1
+docker run -d -p 24224:24224 -p 24224:24224/udp -v /data:/fluentd/log -e CALYPTIA_API_KEY=YOUR_API_KEY [-e CALYPTIA_ENDPOINT=http://localhost:5000] ghcr.io/calyptia/fluentd:v1.14-debian-1
 ```
 
 Default configurations are to:
@@ -83,7 +115,7 @@ Default configurations are to:
 For example, to provide a config, then:
 
 ```console
-$ docker run -it --rm -p 24224:24224 -p 24224:24224/udp -v /path/to/dir:/fluentd/etc -v /path/to/store/api_response:/fluentd/log/agent_state ghcr.io/calyptia/fluentd:v1.13-beta-1 -c /fluentd/etc/<conf>
+$ docker run -it --rm -p 24224:24224 -p 24224:24224/udp -v /path/to/dir:/fluentd/etc -v /path/to/store/api_response:/fluentd/log/agent_state ghcr.io/calyptia/fluentd:v1.14-debian-1 -c /fluentd/etc/<conf>
 ```
 
 The first `-v` tells Docker to share '/path/to/dir' as a volume and mount it at `/fluentd/etc`.
