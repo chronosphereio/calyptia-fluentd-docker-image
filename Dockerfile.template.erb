@@ -25,9 +25,9 @@ RUN apt-get update \
  && gem install async-http -v 0.56.5 \
  && gem install capng_c -v 0.2.2 \
  && gem install bundler -v 2.2.24 \
- && gem install fluentd -v 1.14.0.rc \
- && gem install fluent-plugin-metrics-cmetrics -v 0.1.0.rc3 \
- && gem install fluent-plugin-calyptia-monitoring -v 0.1.0.rc9 \
+ && gem install fluentd -v 1.14.0 \
+ && gem install fluent-plugin-metrics-cmetrics -v 0.1.1 \
+ && gem install fluent-plugin-calyptia-monitoring -v 0.1.1 \
  && fluent-cap-ctl --add dac_override \
  && dpkgArch="$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
  && wget -O /usr/local/bin/tini "https://github.com/krallin/tini/releases/download/v$TINI_VERSION/tini-$dpkgArch" \
