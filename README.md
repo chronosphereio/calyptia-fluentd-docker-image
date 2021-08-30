@@ -98,7 +98,7 @@ Current images use fluentd v1 series and pushed into GitHub Container Registry(g
 To create endpoint that collects logs on your host just run:
 
 ```bash
-docker run -d -p 24224:24224 -p 24224:24224/udp -v /data:/fluentd/log -e CALYPTIA_API_KEY=YOUR_API_KEY [-e CALYPTIA_ENDPOINT=http://localhost:5000] ghcr.io/calyptia/fluentd:v1.14-debian-1
+docker run -d -p 24224:24224 -p 24224:24224/udp -e CALYPTIA_API_KEY=YOUR_API_KEY [-e CALYPTIA_ENDPOINT=http://localhost:5000] ghcr.io/calyptia/fluentd:v1.14-debian-1
 ```
 
 Default configurations are to:
@@ -115,7 +115,7 @@ Default configurations are to:
 For example, to provide a config, then:
 
 ```console
-$ docker run -it --rm -p 24224:24224 -p 24224:24224/udp -v /path/to/dir:/fluentd/etc -v /path/to/store/api_response:/fluentd/log/agent_state ghcr.io/calyptia/fluentd:v1.14-debian-1 -c /fluentd/etc/<conf>
+$ docker run -it --rm -p 24224:24224 -p 24224:24224/udp -v /path/to/dir:/fluentd/etc -v /path/to/store/api_response:/fluentd/state/calyptia-fluentd/agent_states ghcr.io/calyptia/fluentd:v1.14-debian-1 -c /fluentd/etc/<conf>
 ```
 
 The first `-v` tells Docker to share '/path/to/dir' as a volume and mount it at `/fluentd/etc`.
