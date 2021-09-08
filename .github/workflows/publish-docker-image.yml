@@ -29,4 +29,4 @@ jobs:
           make tags DOCKERFILE=${{ matrix.dockerfile }}
       - name: Push image tags
         if: startsWith(github.ref, 'refs/tags/v')
-        run: make push
+        run: make push DOCKERFILE=${{ matrix.dockerfile }}
