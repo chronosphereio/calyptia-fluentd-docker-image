@@ -13,10 +13,12 @@
 
 IMAGE_NAME := ghcr.io/calyptia/fluentd
 X86_IMAGES := \
-	v1.14/debian:v1.14.2-debian-1.0,v1.14-debian-1,edge-debian
+	v1.14/debian:v1.14.2-debian-1.1,v1.14-debian-1,edge-debian
 #	<Dockerfile>:<version>,<tag1>,<tag2>,...
 
 ALL_IMAGES := $(X86_IMAGES)
+
+PLATFORMS := linux/amd64,linux/arm64
 
 # Default is first image from ALL_IMAGES list.
 DOCKERFILE ?= $(word 1,$(subst :, ,$(word 1,$(ALL_IMAGES))))
@@ -46,7 +48,8 @@ no-cache-arg = $(if $(call eq, $(no-cache), yes), --no-cache, $(empty))
 image:
 	docker build $(no-cache-arg) -t $(IMAGE_NAME):$(VERSION) $(DOCKERFILE) --build-arg VERSION=$(VERSION)
 
-
+multiarch-image:
+	docker buildx build $(no-cache-arg) -t $(IMAGE_NAME):$(VERSION) $(DOCKERFILE) --build-arg VERSION=$(VERSION) --platform=$(PLATFORMS)
 
 # Tag Docker image with given tags.
 #
@@ -60,6 +63,10 @@ tags:
 		docker tag $(IMAGE_NAME):$(VERSION) $(IMAGE_NAME):$(tag) ; \
 	))
 
+multiarch-tags:
+	(set -e ;  $(foreach tag, $(parsed-tags), \
+		docker buildx build -t $(IMAGE_NAME):$(tag) $(DOCKERFILE) --build-arg VERSION=$(VERSION) --platform=$(PLATFORMS) ; \
+	))
 
 
 # Manually push Docker images to Docker Hub.
@@ -72,7 +79,10 @@ push:
 		docker push $(IMAGE_NAME):$(tag) ; \
 	))
 
-
+multiarch-push:
+	(set -e ;  $(foreach tag, $(parsed-tags), \
+		docker buildx build -t $(IMAGE_NAME):$(tag) $(DOCKERFILE) --build-arg VERSION=$(VERSION) --platform=$(PLATFORMS) --push ; \
+	))
 
 # Make manual release of Docker images to Docker Hub.
 #
