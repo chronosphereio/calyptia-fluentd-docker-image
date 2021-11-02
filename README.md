@@ -121,6 +121,18 @@ $ docker run -it --rm -p 24224:24224 -p 24224:24224/udp -v /path/to/dir:/fluentd
 The first `-v` tells Docker to share '/path/to/dir' as a volume and mount it at `/fluentd/etc`.
 The second `-v` tells Docker to persist '/path/to/anotherdir` as a volume and mount it at `/fluentd/log/agent_state`.
 
+### Build with BuildKit
+
+Docker supports multiarch image with BuildKit. This build procedure is enabled by:
+
+```console
+$ docker buildx create --name cibuilder --driver docker-container --use
+$ docker buildx use cibuilder
+$ docker buildx inspect --bootstrap
+```
+
+Now, spin up for building multiarch docker image.
+
 ### References
 
 [Docker Logging | fluentd.org][docker-logging-recipe]
