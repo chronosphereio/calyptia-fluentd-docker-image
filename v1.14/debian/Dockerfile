@@ -3,7 +3,7 @@
 
 FROM ruby:3.0-slim-buster
 LABEL maintainer "Fluentd developers <fluentd@googlegroups.com>"
-LABEL Description="Calyptia Fluentd docker image" Vendor="Calyptia, Inc." Version="1.14.2"
+LABEL Description="Calyptia Fluentd docker image" Vendor="Calyptia, Inc." Version="1.14.3"
 ENV TINI_VERSION=0.18.0
 
 # Do not split this into multiple RUN!
@@ -23,7 +23,7 @@ RUN apt-get update \
  && gem install async-http -v 0.56.5 \
  && gem install capng_c -v 0.2.2 \
  && gem install bundler -v 2.2.30 \
- && gem install fluentd -v 1.14.2 \
+ && gem install fluentd -v 1.14.3 \
  && gem install fluent-plugin-metrics-cmetrics -v 0.1.1 \
  && gem install fluent-plugin-calyptia-monitoring -v 0.1.3 \
  && fluent-cap-ctl --add dac_override \
