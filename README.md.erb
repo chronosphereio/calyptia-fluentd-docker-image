@@ -14,26 +14,44 @@ collection and consumption for a better use and understanding of data.
 
 See also GitHub container repository page: https://github.com/calyptia/calyptia-fluentd-docker-image/pkgs/container/fluentd
 
+<% images = all_images.split(" ") %>
+<% debian = images.select { |i| i.match("debian") } %>
+<% alpine = images.select { |i| i.match("alpine") } %>
+<% no_built_x86_64_images = %w() %>
+<% no_built_arm64_images = %w() %>
+<% no_built_multiarch_images = no_built_arm64_images.dup.concat(no_built_x86_64_images).uniq %>
 
 ### Debian
 
 ##### Multi-Arch images
-- `1.0`
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14.4-debian-1.0`
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14-debian-1`
-  - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
+<% debian.each do |image| %>
+<% path = image.split(":").first.sub("-amd64",""); tags = image.split(":").last %>
+<% next if no_built_multiarch_images.any? do |component| tags.include?(component) end %>
+- `<%= tags.split(",").first.split("-")[2].capitalize %>`
+<% tags.split(",").each do |tag| %>
+  - `docker pull ghcr.io/calyptia/fluentd:<%= tag.sub("-amd64","") %>`
+<% end %>
+<% end %>
 
 ##### x86_64 images
-- `1.0` [Dockerfile](v1.14/debian/Dockerfile)
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14.4-debian-1.0`
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14-debian-1`
-  - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
+<% debian.each do |image| %>
+<% path = image.split(":").first; tags = image.split(":").last %>
+- `<%= tags.split(",").first.split("-")[2].capitalize %>` [Dockerfile](<%= path %>/Dockerfile)
+<% next if no_built_x86_64_images.any? do |component| tags.include?(component) end %>
+<% tags.split(",").each do |tag| %>
+  - `docker pull ghcr.io/calyptia/fluentd:<%= tag %>`
+<% end %>
+<% end %>
 
 ##### arm64 images
-- `1.0` [Dockerfile](v1.14/debian/Dockerfile)
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14.4-debian-1.0`
-  - `docker pull ghcr.io/calyptia/fluentd:v1.14-debian-1`
-  - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
+<% debian.each do |image| %>
+<% path = image.split(":").first; tags = image.split(":").last %>
+- `<%= tags.split(",").first.split("-")[2].capitalize %>` [Dockerfile](<%= path %>/Dockerfile)
+<% next if no_built_arm64_images.any? do |component| tags.include?(component) end %>
+<% tags.split(",").each do |tag| %>
+  - `docker pull ghcr.io/calyptia/fluentd:<%= tag %>`
+<% end %>
+<% end %>
 
 ## Settings for Calyptia Cloud
 

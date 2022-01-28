@@ -108,6 +108,12 @@ release-all:
 	))
 
 
+README.md: README.md.erb
+	docker run --rm -i -v $(PWD)/README.md.erb:/README.md.erb:ro \
+		ruby:alpine erb -U -T 1 \
+	                all_images='$(ALL_IMAGES)' \
+		/README.md.erb > README.md
+
 
 # Generate Docker image sources.
 #
@@ -123,7 +129,7 @@ src: dockerfile fluent.conf entrypoint.sh post-push-hook post-checkout-hook
 # Usage:
 #	make src-all
 
-src-all:
+src-all: README.md
 	(set -e ; $(foreach img,$(ALL_IMAGES), \
 		make src \
 			DOCKERFILE=$(word 1,$(subst :, ,$(img))) \
@@ -351,6 +357,7 @@ endif
         src src-all \
         dockerfile dockerfile-all \
         fluent.conf fluent.conf-all \
+        README.md \
         post-push-hook post-push-hook-all \
 		post-checkout-hook post-checkout-hook-all \
         test test-all deps.bats
