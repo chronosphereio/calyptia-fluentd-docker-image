@@ -19,19 +19,19 @@ See also GitHub container repository page: https://github.com/calyptia/calyptia-
 
 ##### Multi-Arch images
 - `1.0`
-  - `docker pull ghcr.io/calyptia/fluentd:v1.15.1-debian-1.0`
+  - `docker pull ghcr.io/calyptia/fluentd:v1.15.2-debian-1.0`
   - `docker pull ghcr.io/calyptia/fluentd:v1.15-debian-1`
   - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
 
 ##### x86_64 images
 - `1.0` [Dockerfile](v1.15/debian/Dockerfile)
-  - `docker pull ghcr.io/calyptia/fluentd:v1.15.1-debian-1.0`
+  - `docker pull ghcr.io/calyptia/fluentd:v1.15.2-debian-1.0`
   - `docker pull ghcr.io/calyptia/fluentd:v1.15-debian-1`
   - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
 
 ##### arm64 images
 - `1.0` [Dockerfile](v1.15/debian/Dockerfile)
-  - `docker pull ghcr.io/calyptia/fluentd:v1.15.1-debian-1.0`
+  - `docker pull ghcr.io/calyptia/fluentd:v1.15.2-debian-1.0`
   - `docker pull ghcr.io/calyptia/fluentd:v1.15-debian-1`
   - `docker pull ghcr.io/calyptia/fluentd:edge-debian`
 

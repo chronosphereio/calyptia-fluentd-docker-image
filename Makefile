@@ -13,7 +13,7 @@
 
 IMAGE_NAME := ghcr.io/calyptia/fluentd
 X86_IMAGES := \
-	v1.15/debian:v1.15.1-debian-1.0,v1.15-debian-1,edge-debian
+	v1.15/debian:v1.15.2-debian-1.0,v1.15-debian-1,edge-debian
 #	<Dockerfile>:<version>,<tag1>,<tag2>,...
 
 ALL_IMAGES := $(X86_IMAGES)
