@@ -18,12 +18,12 @@ RUN apt-get update \
     " \
  && apt-get install -y --no-install-recommends $buildDeps \
  && echo 'gem: --no-document' >> /etc/gemrc \
- && gem install oj -v 3.13.15 \
+ && gem install oj -v 3.13.23 \
  && gem install json -v 2.6.2 \
  && gem install async -v 1.30.3 \
- && gem install async-http -v 0.56.6 \
+ && gem install async-http -v 0.59.3 \
  && gem install capng_c -v 0.2.2 \
- && gem install bundler -v 2.3.11 \
+ && gem install bundler -v 2.3.18 \
  && gem install fluentd -v 1.15.3 \
  && gem install fluent-plugin-metrics-cmetrics -v 0.1.2 \
  && gem install fluent-plugin-calyptia-monitoring -v 0.1.3 \
