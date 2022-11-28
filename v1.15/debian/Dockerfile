@@ -3,7 +3,7 @@
 
 FROM ruby:3.0-slim-bullseye
 LABEL maintainer "Fluentd developers <fluentd@googlegroups.com>"
-LABEL Description="Calyptia Fluentd docker image" Vendor="Calyptia, Inc." Version="1.15.2"
+LABEL Description="Calyptia Fluentd docker image" Vendor="Calyptia, Inc." Version="1.15.3"
 ENV TINI_VERSION=0.18.0
 
 # Do not split this into multiple RUN!
@@ -24,7 +24,7 @@ RUN apt-get update \
  && gem install async-http -v 0.56.6 \
  && gem install capng_c -v 0.2.2 \
  && gem install bundler -v 2.3.11 \
- && gem install fluentd -v 1.15.2 \
+ && gem install fluentd -v 1.15.3 \
  && gem install fluent-plugin-metrics-cmetrics -v 0.1.2 \
  && gem install fluent-plugin-calyptia-monitoring -v 0.1.3 \
  && gem install fluent-plugin-cmetrics -v 0.1.0 \
